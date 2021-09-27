@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>タイトル</title>
+    <script crossorigin 
+    src="https://unpkg.com/react@17/umd/react.development.js" 
+    ></script>
+    <script crossorigin 
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" 
+    ></script>
+    <script crossorigin 
+    src="https://unpkg.com/babel-standalone@6/babel.min.js" 
+    ></script>
+</head>
+<body>
+    <div id="likesButtonContainer"></div>
+    <hr>
+    <div id="nameInputContainer"></div>
+    <hr>
+    <div id="CounterContainer"></div>
+    <hr>
+    <script type="text/babel">
+        function LikeButton(){
+            const [liked, setLiked]=React.useState(false)
+            function toggleLiked(){
+                setLiked(!liked)
+            }
+            return(
+                <button className="likeButton" onClick={toggleLiked}>
+                    {liked?"いいね済み":"いいね前"}
+                </button>
+            )
+        }
+        function NameInput(){
+            const [name,setName]=React.useState("ゲスト")
+            function handleOnChange(event){
+                setName(event.target.value)
+            }
+            return(
+                <div>
+                    <input type="text" onChange={handleOnChange}/>
+                    <p>こんにちは{name}さん</p>
+                </div>
+            )
+        }
+        function Counter(){
+            const [count,setCount]=React.useState(0)
+            function incrementCounter(){
+                setCount(count+1)
+            }
+            function decrementCounter(){
+                setCount(count-1)
+            }
+            function resetCounter(){
+                setCount(0)
+            }
+            return(
+                <div>
+                    <p>現在の値は {count} です</p>
+                    <button className="counterButton" onClick={incrementCounter}>
+                        add
+                    </button>
+                    <button className="counterButton" onClick={decrementCounter}>
+                        sub
+                    </button>
+                    <button className="counterButton" onClick={resetCounter}>
+                        reset
+                    </button>
+                </div>
+            )
+        }
+        let domContainer1=document.querySelector("#likesButtonContainer")
+        ReactDOM.render(<LikeButton />,domContainer1)
+        let domContainer2=document.querySelector("#nameInputContainer")
+        ReactDOM.render(<NameInput />,domContainer2)
+        let domContainer3=document.querySelector("#CounterContainer")
+        ReactDOM.render(<Counter />,domContainer3)
+    </script>
+</body>
+</html>
